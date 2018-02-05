@@ -5,8 +5,12 @@ import React from 'react';
 import '../style/Index.css';
 
 class Index extends React.Component{
+
+    toMainPage(){
+        this.props.history.push('/main')
+    }
     render(){
-        return(<div>
+        return(<div className="index_wrapper">
             <section>
                 <div className="section_left">
                     <div className="sl_title">
@@ -15,7 +19,7 @@ class Index extends React.Component{
                     <div className="sl_content">
                         解决各种配色问题，无论你是WEB、APP、DM，这里都能给你当下最流行的色彩参考。
                     </div>
-                    <div className="sl_index"><span>查看色板</span></div>
+                    <div className="sl_index" onClick={ this.toMainPage.bind(this) }><span>查看色板</span></div>
                     <div>
                         <img src="" alt=""/>
                         <img src="" alt=""/>

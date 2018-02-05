@@ -20,39 +20,11 @@ class HomePage extends React.Component{
                     </div>
                 </header>
 
-                <section>
-                    <div className="section_left">
-                        <div className="sl_title">
-                            当下最流行的色板
-                        </div>
-                        <div className="sl_content">
-                            解决各种配色问题，无论你是WEB、APP、DM，这里都能给你当下最流行的色彩参考。
-                        </div>
-                        <div className="sl_index"><span>查看色板</span></div>
-                        <div>
-                            <img src="" alt=""/>
-                            <img src="" alt=""/>
-                            <img src="" alt=""/>
-                            <img src="" alt=""/>
-                        </div>
-                    </div>
-                    <div className="section_right">
-                        <div className="sr_l">
-                            <div className="sr_l_smp_1"><span></span><span></span><span></span></div>
-                            <div className="sr_l_smp_2"><span></span><span></span><span></span></div>
-                            <div className="sr_l_smp_3"><span></span><span></span><span></span></div>
-                        </div>
-                        <div className="sr_s">
-                            <div className="sr_s_smp_1"><span></span><span></span><span></span></div>
-                            <div className="sr_s_smp_2"><span></span><span></span><span></span></div>
-                            <div className="sr_s_smp_3"><span></span><span></span><span></span></div>
-                        </div>
+                <div>
+                    {this.props.children && React.cloneElement(this.props.children,{
 
-                    </div>
-                </section>
-                <footer>
-                    2017 ©uimore made by seergb
-                </footer>
+                })}
+                </div>
             </div>
         )
     }
