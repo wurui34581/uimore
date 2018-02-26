@@ -10,13 +10,15 @@ class HomePage extends React.Component{
         return(
             <div>
                 <header>
-                    <div className="header_left">
-                        <span>uimore</span>
-                        <span></span>
-                    </div>
-                    <div className="header_right">
-                        <span>About</span>
-                        <span>Contact</span>
+                    <div className="nav">
+                        <div className="header_left">
+                            <span>uimore</span>
+                            <span></span>
+                        </div>
+                        <div className="header_right">
+                            <span>About</span>
+                            <span>Contact</span>
+                        </div>
                     </div>
                 </header>
 

@@ -1,12 +1,20 @@
+a{
+    text-decoration: none;
+}
 .index_wrapper{
     width: 100%;
 }
-section{
+.index_section{
+    position: fixed;
+    width: 100%;
+}
+section .index_box{
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 section  .section_left{
-    margin-top: 21.97%;
+    margin-top: 280px;
     margin-left: 104px;
     width: 100%;
 }
@@ -44,7 +52,7 @@ section .section_left .sl_index span{
     padding-left: 35px;
 }
 section .section_right{
-    margin-top: 21%;
+    margin-top: 250px;
     position: relative;
 }
 section .section_right .sr_l{

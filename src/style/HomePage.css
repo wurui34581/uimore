@@ -5,15 +5,30 @@ body{
     height: 100%;
 }
 header{
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: rgba(255,255,255,0.9);
+}
+header .nav{
+    max-width: 1440px;
+    margin: auto;
+    padding: 0 30px;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
     justify-content: space-between;
-    color: #1E2124;
+    height: 87px;
 }
 header .header_left{
     font-family: "PingFang SC";
     font-size: 40px;
     font-weight: 500;
-    padding: 3.71% 0 0 100px;
+    padding: 19px 0 19px 100px;
 }
 header .header_left span:nth-child(2){
     display: inline-block;
@@ -28,7 +43,7 @@ header .header_right{
     font-family: Futura;
     font-size: 18px;
     font-weight: 500;
-    padding: 56px 100px 0 0;
+    padding: 27px 100px 0 0;
 }
 header .header_right span:nth-child(1){
     padding-right: 56px;

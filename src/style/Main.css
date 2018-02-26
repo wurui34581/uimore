@@ -1,5 +1,8 @@
 .main_wrapper{
     width: 100%;
+    position: absolute;
+    z-index: 1;
+    background: #fff;
 }
 .main_wrapper .main_title{
     color: #43484D;
@@ -15,13 +18,18 @@
     text-align: center;
     margin-top: 1.86%;
 }
+
 .main_wrapper .color_bord{
     max-width: 1440px;
-    margin:66px 180px 110px 180px;
-    height:500px;
+    margin: 66px auto 110px;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    justify-content: space-between;
+    -ms-flex-pack: center;
+    justify-content: left;
+    box-sizing: border-box;
+    padding: 0 170px;
 }
 .main_wrapper .color_bord .single_color{
     width: 320px;
@@ -35,15 +43,54 @@
 .main_wrapper .color_bord .single_color:nth-child(3n){
     margin-right: 0;
 }
+.main_wrapper .color_bord .single_color .color_like{
+    margin-left: 21px;
+    margin-top: 38px;
+}
+.main_wrapper .color_bord .single_color .color_like img{
+    vertical-align: middle;
+}
+.main_wrapper .color_bord .single_color .color_like .color_like_num{
+    color: #AFB8BF;
+    font-size: 12px;
+    margin-left: 11px;
+}
 .main_wrapper .color_bord .single_color .single_color_wrapper{
     width:100%;
-    height:100%;
+    height:200px;
     border-radius:12px;
+}
+.main_wrapper .color_bord .single_color .single_color_wrapper .color_show{
+    width: 100%;
+    height: 200px;
+    display: inline-block;
+    border-radius: 12px 12px 0 0;
+    position: relative;
+}
+.main_wrapper .color_bord .single_color .single_color_wrapper .close_pic{
+    position: absolute;
+    right: 20px;
+    top: 24px;
+}
+.main_wrapper .color_bord .single_color .single_color_wrapper .close_pic:hover{
+    cursor: pointer;
+}
+.main_wrapper .color_bord .single_color .single_color_wrapper .color_name{
+    position: absolute;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+    left: 20px;
+    bottom: 20px;
+
 }
 .main_wrapper .color_bord .single_color .color_col{
     width: 64px;
     height: 200px;
     display: inline-block;
+}
+.main_wrapper .color_bord .single_color .color_col:hover{
+    cursor: pointer;
 }
 
 .main_wrapper .color_bord .single_color .color_col:nth-child(1){
