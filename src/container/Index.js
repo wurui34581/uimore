@@ -5,21 +5,48 @@ import React from 'react';
 import '../style/Index.css';
 import closePic from '../img/close.png';
 import heartPic from '../img/heart.png';
+import $ from 'jquery';
 
 class Index extends React.Component{
 
     state = {
         dataList:[],
+        newDataList:[],
+        dataState: false,
         colorState: false,
         colorIndex:0,
         color:'',
-        mainTop: 800
+        mainTop: 800,
+        textColor: ''
     };
     componentDidMount(){
+        //将十六进制的色值转为rgb格式
+        String.prototype.colorRgb = function(){
+            var sColor = this.toLowerCase();
+            //十六进制颜色值的正则表达式
+            var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+            // 如果是16进制颜色
+            if (sColor && reg.test(sColor)) {
+                if (sColor.length === 4) {
+                    var sColorNew = "#";
+                    for (var i=1; i<4; i+=1) {
+                        sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));
+                    }
+                    sColor = sColorNew;
+                }
+                //处理六位的颜色值
+                var sColorChange = [];
+                for (var i=1; i<7; i+=2) {
+                    sColorChange.push(parseInt("0x"+sColor.slice(i, i+2)));
+                }
+                return sColorChange;
+            }
+            return sColor;
+        };
         this.setState({
             dataList:[{
                 id:1,
-                color:['#2b6df6','#f4f4f4','#aac9fa','#71a3f7','#d6e5fc'],
+                color:['#2b6df6','#f4f4f4','#aac9fa','#71a3f7','#D49209'],
                 like: 345
             },{
                 id:2,
@@ -45,13 +72,39 @@ class Index extends React.Component{
                 id:7,
                 color:['#2b6df6','#f4f6f4','#aac9fa','#71a3f7','#d6e5fc'],
                 like: 346
-            }]
-        })
-    }
-    componentDidUpdate(){
+            }],
+            dataState:true
+        });
+
+
+
 
     }
-    changeColor(index, color, type){
+
+    turnColor(colorArr){
+        let newColorArr = [];
+        colorArr && colorArr.map(( color )=>{
+            let nvertColor = this.nvertColor(...(color.colorRgb()));
+            newColorArr.push(nvertColor);
+        });
+        return newColorArr;
+    }
+
+    componentDidUpdate(){
+        const { dataList, dataState } = this.state;
+        let newData = [];
+        if( dataState ){
+            dataList && dataList.map(( data )=>{
+                newData.push(this.turnColor(data.color))
+            });
+            this.setState({
+                newDataList: newData,
+                dataState: false
+            })
+        }
+
+    }
+    changeColor(index, color, textColor, type){
         if( type === 'close' ){
             this.setState({
                 colorState: false
@@ -60,7 +113,8 @@ class Index extends React.Component{
             this.setState({
                 colorState: true,
                 colorIndex: index,
-                color: color
+                color: color,
+                textColor: textColor
             })
         }
     }
@@ -69,8 +123,52 @@ class Index extends React.Component{
             mainTop: 87
         })
     }
+    //反转颜色
+    nvertColor(r,g,b,a){
+        return [
+            (255-r),
+            (255-g),
+            (255-b),
+            a
+        ];
+    }
+
+    colorRgb(){
+        var sColor = this.toLowerCase();
+        //十六进制颜色值的正则表达式
+        var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+        // 如果是16进制颜色
+        if (sColor && reg.test(sColor)) {
+            if (sColor.length === 4) {
+                var sColorNew = "#";
+                for (var i=1; i<4; i+=1) {
+                    sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));
+                }
+                sColor = sColorNew;
+            }
+            //处理六位的颜色值
+            var sColorChange = [];
+            for (var i=1; i<7; i+=2) {
+                sColorChange.push(parseInt("0x"+sColor.slice(i, i+2)));
+            }
+            return "RGB(" + sColorChange.join(",") + ")";
+        }
+        return sColor;
+    }
+
+    colorAnimationOn(e){
+        $(e.target).addClass('color_animation')
+
+    }
+
+    colorAnimationLeave(e){
+        $(e.target).removeClass('color_animation')
+
+    }
+
     render(){
-        const { dataList, colorState, colorIndex, color, mainTop } = this.state;
+        const { dataList, colorState, colorIndex, color, mainTop, newDataList, textColor } = this.state;
+        let textColour = textColor && `rgb(${textColor[0]},${textColor[1]},${textColor[2]})`;
         return(<div className="index_wrapper">
             <section className="index_section">
                 <div className="index_box">
@@ -117,10 +215,11 @@ class Index extends React.Component{
                                             {
                                                 colorState && colorIndex === index?
                                                     <span><span className="color_show" style={{ background:`${color}`}}><img
-                                                        src={ closePic } alt="" className="close_pic" onClick={this.changeColor.bind(this,'close')} /><span className="color_name">{color}</span></span></span>:
+                                                        src={ closePic } alt="" className="close_pic" onClick={this.changeColor.bind(this,'close')} /><span className="color_name" style={{color:textColour}}>{color}</span></span></span>:
                                                 item.color && item.color.length>0?
                                                     item.color.map((color,color_index)=>{
-                                                        return <span className="color_col" style={{ background:color }} key={color_index} onClick={this.changeColor.bind(this, index, color, 'open')}> </span>
+                                                        let textColor = newDataList && newDataList[index] && newDataList[index][color_index];
+                                                        return <span className="color_col" style={{ background:color }} key={color_index} onClick={this.changeColor.bind(this, index, color, textColor,'open')} onMouseEnter={ this.colorAnimationOn.bind(this) } onMouseLeave={ this.colorAnimationLeave.bind(this) }> </span>
                                                     }):''
                                             }
                                         </div>
@@ -134,7 +233,7 @@ class Index extends React.Component{
                     </div>
                 </div>
             </section>
-             {/* <footer>
+             {/*<footer>
                 2017 ©uimore made by seergb
             </footer>*/}
         </div>)

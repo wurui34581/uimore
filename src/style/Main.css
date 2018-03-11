@@ -21,6 +21,7 @@
 
 .main_wrapper .color_bord{
     max-width: 1440px;
+    min-width: 1440px;
     margin: 66px auto 110px;
     display: -ms-flexbox;
     display: flex;
@@ -59,6 +60,7 @@
     width:100%;
     height:200px;
     border-radius:12px;
+    overflow: hidden;
 }
 .main_wrapper .color_bord .single_color .single_color_wrapper .color_show{
     width: 100%;
@@ -77,7 +79,6 @@
 }
 .main_wrapper .color_bord .single_color .single_color_wrapper .color_name{
     position: absolute;
-    color: #FFFFFF;
     font-size: 16px;
     font-weight: 500;
     left: 20px;
@@ -88,6 +89,10 @@
     width: 64px;
     height: 200px;
     display: inline-block;
+    transition: width .5s;
+}
+.main_wrapper .color_bord .single_color  .color_col.color_animation{
+    width: 80px;
 }
 .main_wrapper .color_bord .single_color .color_col:hover{
     cursor: pointer;
