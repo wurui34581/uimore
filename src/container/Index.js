@@ -50,11 +50,11 @@ class Index extends React.Component{
                 like: 345
             },{
                 id:2,
-                color:['#2b6df9','#f4f4f4','#aac9fa','#71a3f7','#d6e5fc'],
+                color:['#eeeeee','#f4f4f4','#aac9fa','#71a3f7','#d6e5fc'],
                 like: 341
             },{
                 id:3,
-                color:['#2b6df6','#f8f4f4','#aac9fa','#71a3f7','#d6e5fc'],
+                color:['#000000','#f8f4f4','#aac9fa','#71a3f7','#d6e5fc'],
                 like: 348
             },{
                 id:4,
@@ -85,6 +85,7 @@ class Index extends React.Component{
         let newColorArr = [];
         colorArr && colorArr.map(( color )=>{
             let nvertColor = this.nvertColor(...(color.colorRgb()));
+
             newColorArr.push(nvertColor);
         });
         return newColorArr;
@@ -102,7 +103,6 @@ class Index extends React.Component{
                 dataState: false
             })
         }
-
     }
     changeColor(index, color, textColor, type){
         if( type === 'close' ){
@@ -125,12 +125,14 @@ class Index extends React.Component{
     }
     //反转颜色
     nvertColor(r,g,b,a){
-        return [
+        let grayLevel = r * 0.299 + g * 0.587 + b * 0.114;
+        /*return [
             (255-r),
             (255-g),
             (255-b),
             a
-        ];
+        ];*/
+        return grayLevel;
     }
 
     colorRgb(){
@@ -168,7 +170,7 @@ class Index extends React.Component{
 
     render(){
         const { dataList, colorState, colorIndex, color, mainTop, newDataList, textColor } = this.state;
-        let textColour = textColor && `rgb(${textColor[0]},${textColor[1]},${textColor[2]})`;
+
         return(<div className="index_wrapper">
             <section className="index_section">
                 <div className="index_box">
@@ -215,10 +217,12 @@ class Index extends React.Component{
                                             {
                                                 colorState && colorIndex === index?
                                                     <span><span className="color_show" style={{ background:`${color}`}}><img
-                                                        src={ closePic } alt="" className="close_pic" onClick={this.changeColor.bind(this,'close')} /><span className="color_name" style={{color:textColour}}>{color}</span></span></span>:
+                                                        src={ closePic } alt="" className="close_pic" onClick={this.changeColor.bind(this,'close')} /><span className="color_name" style={{color:textColor}}>{color}</span></span></span>:
                                                 item.color && item.color.length>0?
                                                     item.color.map((color,color_index)=>{
-                                                        let textColor = newDataList && newDataList[index] && newDataList[index][color_index];
+                                                        let textColorNum = newDataList && newDataList[index] && newDataList[index][color_index];
+                                                        let textColor = textColorNum <= 100? '#fff':textColorNum <= 150? '#eee': '#000';
+
                                                         return <span className="color_col" style={{ background:color }} key={color_index} onClick={this.changeColor.bind(this, index, color, textColor,'open')} onMouseEnter={ this.colorAnimationOn.bind(this) } onMouseLeave={ this.colorAnimationLeave.bind(this) }> </span>
                                                     }):''
                                             }
